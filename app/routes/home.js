@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 /**
  * @fileOverview Main Router
  *
@@ -10,7 +11,9 @@
  * Imports
  */
 var express = require('express'),
-	router = express.Router();
+	router = express.Router(),
+	React = require('react/addons'),
+	MainApp = React.createFactory(require('../components/MainApp'));
 
 /**
  * Routes
@@ -22,7 +25,11 @@ var express = require('express'),
  * ROUTE: [GET] /
  */
 router.get('/', function (req, res) {
-	res.render('layout.ejs');
+	
+
+	var output = React.renderToString(MainApp({name: "John"}));
+
+	res.render('layout.ejs', {output: output});
 });
 
 module.exports = router;

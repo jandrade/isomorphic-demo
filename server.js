@@ -10,6 +10,9 @@
 /**
  * Imports
  */
+// Make sure to include the JSX transpiler
+require("node-jsx").install();
+
 var express = require('express'),
 	bodyParser = require('body-parser'),
 	path = require('path'),
@@ -21,13 +24,12 @@ var express = require('express'),
 	server,
 	port = process.env.PORT || 4000;
 
-
 // configure express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // include static assets
-app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(__dirname + '/assets'));
 
 // configure template engine
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +42,7 @@ app.use('/', router);
  * Server started correctly
  */
 function started() {
-	console.log('Showcase API listening at http://%s:%s', server.address().address, server.address().port);
+	console.log('Isomorphic app listening at http://%s:%s', server.address().address, server.address().port);
 }
 
 // start server
